@@ -10,6 +10,5 @@ executor: ThreadPoolExecutor = None  # type: ignore
 appdata_data = os.environ.get("APPDATA", op.expanduser("~"))
 mod_save_dir = op.join(appdata_data, "pymhf", "MOD_SAVES")
 
-#mod_save_dir = op.join(_internal.CFG_DIR, "MOD_SAVES")
 if not op.exists(mod_save_dir):
     os.makedirs(mod_save_dir)

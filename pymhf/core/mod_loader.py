@@ -17,6 +17,7 @@ import traceback
 from types import ModuleType
 from typing import Any, Optional, Union, TYPE_CHECKING
 import sys
+from collections import OrderedDict
 
 from pymhf.core.importing import import_file
 from pymhf.core.errors import NoSaveError
@@ -138,10 +139,14 @@ class ModState(ABC):
         with open(op.join(common.mod_save_dir, name), "w") as fobj:
             json.dump(_data, fobj, cls=StructEncoder, indent=1)
 
-    def load(self, name: str):
+    def load(self, name: str, ordered_dict=None):
         try:
-            with open(op.join(common.mod_save_dir, name), "r") as f:
-                data = json.load(f, cls=StructDecoder)
+            if ordered_dict:
+                with open(op.join(common.mod_save_dir, name), "r") as f:
+                    data = json.load(f, cls=StructDecoder, object_pairs_hook=OrderedDict)
+            else:                
+                with open(op.join(common.mod_save_dir, name), "r") as f:
+                    data = json.load(f, cls=StructDecoder)
         except FileNotFoundError as e:
             raise NoSaveError from e
         for key, value in data.items():
