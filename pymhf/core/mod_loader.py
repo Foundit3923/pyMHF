@@ -143,7 +143,7 @@ class ModState(ABC):
         try:
             if ordered_dict:
                 with open(op.join(common.mod_save_dir, name), "r") as f:
-                    data = json.load(f, cls=StructDecoder, object_pairs_hook=OrderedDict)
+                    data = json.load(f, object_pairs_hook=OrderedDict)
             else:                
                 with open(op.join(common.mod_save_dir, name), "r") as f:
                     data = json.load(f, cls=StructDecoder)
