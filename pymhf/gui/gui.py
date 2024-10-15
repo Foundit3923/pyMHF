@@ -52,7 +52,18 @@ class Button:
 
 
 class GUI:
+    GUI_INSTANCE = None
+
+    @classmethod
+    def get_instance(cls, mod_manager: ModManager, config: AutosavingConfig):
+        if cls.GUI_INSTANCE is not None:
+            return cls.GUI_INSTANCE
+        cls.GUI_INSTANCE = GUI(mod_manager, config)
+        return cls.GUI_INSTANCE
+
     def __init__(self, mod_manager: ModManager, config: AutosavingConfig):
+        if GUI.GUI_INSTANCE is not None:
+            raise ValueError("ONLY ONE GUI AT A TIME")
         self.config = config
         self.scale = config.getint("gui", "scale", fallback=1)
         dpg.create_context()

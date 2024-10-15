@@ -1,5 +1,4 @@
 from concurrent.futures import ThreadPoolExecutor
-from pymhf.gui.gui import GUI
 from typing import Optional
 
 CWD: str = ""
@@ -12,7 +11,6 @@ BASE_ADDRESS: int = -1
 SIZE_OF_IMAGE: int = -1
 CFG_DIR: str = ""
 EXE_NAME: str = ""
-GUI_REF: Optional[GUI] = None
 
 _executor: ThreadPoolExecutor = None  # type: ignore
 
