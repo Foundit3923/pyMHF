@@ -230,6 +230,8 @@ try:
             gui.add_tab(mod)
         # Add the settings tab so that we may configure various settings.
         gui.add_settings_tab()
+        # store reference to gui object for later use.
+        _internal.GUI_REF = gui
 
         # TODO: This needs to have some exception handling because if something
         # goes wrong in here it will just fail "silently".

@@ -9,8 +9,13 @@ import win32gui
 import win32process
 
 import pymhf.core._internal as _internal
+from pymhf.gui.gui import GUI
 
 logger = logging.getLogger(__name__)
+
+
+def get_gui() -> Optional[GUI]:
+    return _internal.GUI_REF
 
 
 def get_main_window_handle() -> Optional[int]:
