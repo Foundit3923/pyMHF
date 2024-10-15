@@ -31,6 +31,24 @@ class Widgets(TypedDict):
     variables: dict[str, list[tuple[Union[int, str], WidgetType]]]
 
 
+class Button:
+
+    def __init__(self, label):
+        with dpg.stage() as self._staging_container_id:
+            self._id = dpg.add_button(label=label)
+
+    def set_callback(self, callback):
+        dpg.set_item_callback(self._id, callback)
+
+    def get_label(self):
+        return dpg.get_item_label(self._id)
+
+    def submit(self, parent):
+        dpg.push_container_stack(parent)
+        dpg.unstage(self._staging_container_id)
+        dpg.pop_container_stack()
+
+
 class GUI:
     def __init__(self, mod_manager: ModManager, config: AutosavingConfig):
         self.config = config
