@@ -32,21 +32,23 @@ class Widgets(TypedDict):
 
 
 class Button:
+    can_push = False
 
-    def __init__(self, label):
+    def __init__(self, label, callback):
         with dpg.stage() as self._staging_container_id:
             self._id = dpg.add_button(label=label)
-
-    def set_callback(self, callback):
-        dpg.set_item_callback(self._id, callback)
-
+            dpg.set_item_callback(self._id, callback)
+        self.can_push = True
+        
     def get_label(self):
         return dpg.get_item_label(self._id)
 
     def submit(self, parent):
-        dpg.push_container_stack(parent)
-        dpg.unstage(self._staging_container_id)
-        dpg.pop_container_stack()
+        if self.can_push:
+            dpg.push_container_stack(parent)
+            dpg.unstage(self._staging_container_id)
+            dpg.pop_container_stack()
+            self.can_push = False
 
 
 class GUI:
