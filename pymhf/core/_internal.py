@@ -1,5 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 CWD: str = ""
 MODULE_PATH: str = ""

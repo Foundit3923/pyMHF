@@ -1,6 +1,7 @@
 import os
 import os.path as op
 from concurrent.futures import ThreadPoolExecutor
+
 import pymhf.core.utils as utils
 
 # TODO: Move somewhere else? Not sure where but this doesn't really fit here...

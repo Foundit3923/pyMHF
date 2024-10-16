@@ -31,39 +31,9 @@ class Widgets(TypedDict):
     variables: dict[str, list[tuple[Union[int, str], WidgetType]]]
 
 
-class Button:
-    can_push = False
-
-    def __init__(self, label, callback):
-        with dpg.stage() as self._staging_container_id:
-            self._id = dpg.add_button(label=label)
-            dpg.set_item_callback(self._id, callback)
-        self.can_push = True
-        
-    def get_label(self):
-        return dpg.get_item_label(self._id)
-
-    def submit(self, parent):
-        if self.can_push:
-            dpg.push_container_stack(parent)
-            dpg.unstage(self._staging_container_id)
-            dpg.pop_container_stack()
-            self.can_push = False
-
-
 class GUI:
-    GUI_INSTANCE = None
-
-    @classmethod
-    def get_instance(cls, mod_manager: ModManager, config: AutosavingConfig):
-        if cls.GUI_INSTANCE is not None:
-            return cls.GUI_INSTANCE
-        cls.GUI_INSTANCE = GUI(mod_manager, config)
-        return cls.GUI_INSTANCE
-
+    
     def __init__(self, mod_manager: ModManager, config: AutosavingConfig):
-        if GUI.GUI_INSTANCE is not None:
-            raise ValueError("ONLY ONE GUI AT A TIME")
         self.config = config
         self.scale = config.getint("gui", "scale", fallback=1)
         dpg.create_context()

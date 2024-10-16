@@ -2,7 +2,7 @@ import logging
 from collections.abc import Callable
 from configparser import ConfigParser
 from ctypes import byref, c_ulong, create_unicode_buffer, windll
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 import pywinctl as pwc
 import win32gui
@@ -13,8 +13,9 @@ import pymhf.core._internal as _internal
 logger = logging.getLogger(__name__)
 
 
-def get_cfg_dir():
+def get_cfg_dir() -> str:
     return _internal.CFG_DIR
+
 
 def get_main_window_handle() -> Optional[int]:
     """Return the handle of the main running application window if possible.

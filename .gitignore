@@ -8,3 +8,4 @@ logs
 mods
 .venv/
 /run_*.py
+launch_run_nms.bat

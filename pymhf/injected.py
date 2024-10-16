@@ -224,13 +224,12 @@ try:
 
     futures = []
     if config.getboolean("gui", "shown", fallback=True):
-        gui = GUI.get_instance(mod_manager, config)
+        gui = GUI(mod_manager, config)
         # For each mod, add the corresponding tab to the gui.
         for mod in mod_manager.mods.values():
             gui.add_tab(mod)
         # Add the settings tab so that we may configure various settings.
         gui.add_settings_tab()
-        # store reference to gui object for later use.
 
         # TODO: This needs to have some exception handling because if something
         # goes wrong in here it will just fail "silently".

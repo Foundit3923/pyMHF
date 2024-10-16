@@ -16,7 +16,7 @@ from abc import ABC
 from dataclasses import fields
 from functools import partial
 from types import ModuleType
-from typing import TYPE_CHECKING, Any, Optional, Union
+from typing import TYPE_CHECKING, Any, Optional, Union, final
 
 import keyboard
 from packaging.version import InvalidVersion
@@ -177,6 +177,15 @@ class Mod(ABC):
     @property
     def _mod_name(self):
         return self.__class__.__name__
+    
+    @final
+    @property
+    def gui(self):
+        return self._gui
+    
+    @gui.setter
+    def gui(self, val):
+        raise AttributeError("Cannot change gui property")
 
     def get_members(self, predicate):
         return {x[1] for x in inspect.getmembers(self, predicate)}
