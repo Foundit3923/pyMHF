@@ -189,6 +189,7 @@ class GUI:
         """Add the mod as a new tab in the GUI."""
         # Check to see if the `no_gui` decorator has been applied to the class.
         # If so, don't add it now.
+        logging.info("adding tab")
         if getattr(cls, "_no_gui", False) is True:
             return
 
@@ -197,6 +198,10 @@ class GUI:
 
         tab = dpg.add_tab(label=name, tag=name, parent="tabbar")
         tab_alias = dpg.get_alias_id(tab)
+        cls._tab_bar_tag = str("tabbar")
+        logging.info("cls._tab_bar_tag set")
+        cls._mod_tab_tag = name
+        logging.info("cls._mod_tab_tag set")
         dpg.set_item_user_data(name, cls)
         self.tabs[tab_alias] = name
         self.widgets[name] = {

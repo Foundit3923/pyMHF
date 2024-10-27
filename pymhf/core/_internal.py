@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Optional
 CWD: str = ""
 MODULE_PATH: str = ""
 HANDLE = None
-MAIN_HWND = None
+MAIN_HWND: Optional[int] = None
 PID: int = -1
 BINARY_HASH: str = ""
 BASE_ADDRESS: int = -1

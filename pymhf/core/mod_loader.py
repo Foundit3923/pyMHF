@@ -165,7 +165,9 @@ class Mod(ABC):
         self._gui_buttons: dict[str, ButtonProtocol] = {
             x[1].__qualname__: x[1] for x in inspect.getmembers(self, _gui_button_predicate)
         }
-        self._gui = None
+        self._gui: Optional["GUI"] = None
+        self._tab_bar_tag: Optional[str] = None
+        self._mod_tab_tag: Optional[str] = None
         # For variables, unless there is a better way, store just the name so we
         # can our own special binding of the name to the GUI.
         self._gui_variables: dict[str, VariableProtocol] = {}
@@ -182,6 +184,16 @@ class Mod(ABC):
     @property
     def gui(self):
         return self._gui
+    
+    @final
+    @property
+    def gui_tab_bar(self) -> Optional[str]:
+        return self._tab_bar_tag
+    
+    @final
+    @property
+    def gui_tab(self) -> Optional[str]:
+        return self._mod_tab_tag
     
     @gui.setter
     def gui(self, val):

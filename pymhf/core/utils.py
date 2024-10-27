@@ -21,19 +21,27 @@ def get_main_window_handle() -> Optional[int]:
     """Return the handle of the main running application window if possible.
     This will correspond to the HWND for the window belonging to the PID of the main running process.
     """
+    logging.info("Getting main window Handle")
     windows = {x.getHandle(): x for x in pwc.getAllWindows()}
+    logging.info("Created windows dict")
     main_pid_hwnds = get_hwnds_for_pid(_internal.PID)
+    logging.info("Retrieved hwnds for pid")
     wins = [x for x, y in windows.items() if (x in main_pid_hwnds and y.title != "pyMHF")]
+    logging.info("Created wins dict")
     if len(wins) == 0:
+        logging.info("wins dict has a length of 0")
         logger.error(f"Cannot find window handle for PID {_internal.PID}")
         return None
     elif len(wins) > 1:
+        logging.info("wins dict has a length > 1")
         logger.error(
             f"Found multiple windows for PID {_internal.PID}: {main_pid_hwnds}.\n"
             "Picking the first arbitrarily but this may not be correct."
         )
+        logging.info("Returning main window Handle")
         return wins[0]
     else:
+        logging.info("Returning main window Handle")
         return wins[0]
 
 
